@@ -1,0 +1,49 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS v5.2.0-beta1 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+
+</head>
+<body class="bg-dark text-white container">
+
+<p th:text="${productDto}"></p>
+<p th:text="${productDtos}"></p>
+<hr>
+
+<table class="table table-striped table-hover text-bg-light">
+    <tr>
+        <th>ID</th>
+        <th>Product Name</th>
+        <th>Product Price</th>
+        <th>if else(unless)</th>
+    </tr>
+    <tr th:each="temp:${productDtos}">
+        <td th:text="${temp.id}"></td>
+        <td th:text="${temp.productName}"></td>
+        <td th:text="${temp.productPrice}"></td>
+        <td th:if="${temp.productPrice>20}" th:text="'Büyüktür'"></td>
+        <td th:unless="${temp.productPrice>20}" th:text="'Eşit Küçüktür'"></td>
+    </tr>
+</table>
+
+<div class="d-block text-white">
+    <p th:text="${get_id}"></p>
+    <p> Selam </p>
+</div>
+
+<div class="d-block text-white">
+    <p th:text="${name}"></p>
+    <p th:text="${age}"></p>
+</div>
+
+<!-- Bootstrap JavaScript Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
