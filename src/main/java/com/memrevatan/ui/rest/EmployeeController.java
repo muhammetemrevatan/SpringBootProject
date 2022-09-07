@@ -18,6 +18,11 @@ public class EmployeeController {
     @Autowired
     EmployeeServices employeeServices;
 
+    @GetMapping({"/index","/"})
+    public String getRoot(){
+        return "index";
+    }
+
     // http://localhost:8080/api/v1/employees
     @GetMapping("/employees")
     public List<EmployeeDto> getAllEmployees(){
@@ -27,9 +32,9 @@ public class EmployeeController {
 
     // http://localhost:8080/api/v1/employees/1
     @GetMapping("/employees/{id}")
-    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long id){
-        List<EmployeeDto> employeeDtos = employeeServices.getAllEmployees();
-        return ResponseEntity.ok(employeeDtos.get(0));
+    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long id) throws Throwable {
+        ResponseEntity<EmployeeDto> employeeDto = employeeServices.getEmployeeById(id);
+        return employeeDto;
     }
 
     // http://localhost:8080/api/v1/employees

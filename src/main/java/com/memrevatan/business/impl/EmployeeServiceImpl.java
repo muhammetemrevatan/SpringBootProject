@@ -10,11 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
+import org.webjars.NotFoundException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeServices {
@@ -46,17 +44,18 @@ public class EmployeeServiceImpl implements EmployeeServices {
 
     @GetMapping("/employees/{id}")
     @Override
-    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long id) throws Throwable {
+    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable(name = "id") Long id) {
         EmployeeEntity employeeEntity = (EmployeeEntity) employeeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id --> " + id + " <-- numaralı id bulunamadi(Turkish)"));
         EmployeeDto employeeDto = entityToDto(employeeEntity);
         return ResponseEntity.ok(employeeDto);
+
     }
 
     @PutMapping("/employees/{id}")
     @Override
     public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable Long id
-            , @RequestBody EmployeeDto employeeDto) throws Throwable {
+            , @RequestBody EmployeeDto employeeDto) {
         EmployeeEntity employeeEntity = dtoToEntity(employeeDto);
         EmployeeEntity employee = (EmployeeEntity) employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id " + id));
@@ -72,7 +71,7 @@ public class EmployeeServiceImpl implements EmployeeServices {
 
     @DeleteMapping("/employees/{id}")
     @Override
-    public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable Long id) throws Throwable {
+    public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable Long id) {
         EmployeeEntity employee = (EmployeeEntity) employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id" + id));
         employeeRepository.delete(employee);
