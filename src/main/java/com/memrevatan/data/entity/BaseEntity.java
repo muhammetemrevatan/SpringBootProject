@@ -1,5 +1,6 @@
 package com.memrevatan.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,10 +13,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.util.Date;
 
-@MappedSuperclass
 @Getter
 @Setter
+@MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value = {"createdDate,updateDate"},allowGetters = true)
 public class BaseEntity {
 
     @Id
